@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>踩踏天堂caita-垂直资讯与体验指南</title>
+<meta name="description" content="踩踏天堂caita是聚合硬核节奏竞速与地形踩踏玩法的垂直内容站，提供赛道地图解析、操作体验指南、版本更新记录与装备搭配推荐，帮玩家快速判断路线难度与练习优先级。">
+<meta name="keywords" content="踩踏天堂caita">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314221f'/%3E%3Cpath d='M7 24 L13 9 L18 18 L22 12 L26 24' fill='none' stroke='%235fd7a8' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "踩踏天堂caita",
+  "description": "硬核节奏竞速与地形踩踏玩法内容站，覆盖赛道解析、操作指南与版本记录。",
+  "inLanguage": "zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "踩踏天堂caita 里「断崖回环」赛道三段跳台必须一次性连跳吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不必。跳台之间允许落地缓冲，2026 年 10 月 21 日的 2.7.3 版本把第二段落点的判定窗口从 0.18 秒放宽到 0.26 秒，逐个跳台分三次起跳反而更稳。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "湿地木栈道地图的摩擦系数在不同版本有变化吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "有。2.6 版本木栈道摩擦系数为 0.62，2.7.1 版本下调到 0.48，滑行距离变长，刹车点需要提前约半个身位。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "新手用键盘还是手柄跑「碎石长坡」更省力？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "键盘的短按更易控制节奏，手柄的线性扳机在长坡持续输出上更稳。碎石长坡的坡度变化集中在 300—520 米区间，建议先用键盘把换挡节点背熟，再切手柄练连贯性。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "「急刹甩尾」的判定和落地角度有关吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "有关。落地角度大于 35 度时甩尾判定不成立，2.7.2 版本补丁明确写入了这一门槛，此前该判定按 40 度计算。"
+      }
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --ink:#14221f;
+  --ink-2:#2b3d38;
+  --muted:#5d716b;
+  --paper:#f4f6f2;
+  --card:#ffffff;
+  --line:#dbe3dc;
+  --brand:#136b52;
+  --brand-2:#0f5642;
+  --accent:#e0763b;
+  --accent-soft:#fbe9dd;
+  --mint:#dff0e6;
+  --radius:14px;
+  --radius-sm:9px;
+  --shadow:0 2px 10px rgba(20,34,31,.07);
+  --shadow-lg:0 10px 30px rgba(20,34,31,.12);
+  --space:18px;
+  --stick:112px;
+  --font:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--stick)}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.75;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.35;margin:0;color:var(--ink)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 12px;padding-left:1.2em}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* sticky zone */
+.sticky-zone{position:sticky;top:0;z-index:60}
+.notice{
+  background:var(--ink);
+  color:#e8f3ee;
+  font-size:13.5px;
+  padding:8px 0;
+}
+.notice .wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.notice b{color:#8fe0bd;font-weight:600;letter-spacing:.02em}
+.notice .dot{width:7px;height:7px;border-radius:50%;background:#5fd7a8;display:inline-block;flex:none;animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.notice a{color:#d7efe4;text-decoration:underline;text-underline-offset:3px}
+
+header.site{
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.head-inner{display:flex;align-items:center;gap:16px;min-height:64px;flex-wrap:wrap;padding:8px 0}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand svg{width:38px;height:38px;flex:none}
+.brand-text{font-weight:800;font-size:19px;letter-spacing:.01em;color:var(--ink)}
+.brand-text small{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.06em}
+nav.mainnav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;align-items:center}
+nav.mainnav a{
+  font-size:14.5px;color:var(--ink-2);padding:6px 11px;border-radius:99px;line-height:1.4;
+}
+nav.mainnav a:hover{background:var(--mint);text-decoration:none}
+nav.mainnav a[aria-current="true"]{background:var(--brand);color:#fff}
+.head-tools{display:flex;gap:8px;align-items:center;flex:none}
+.searchbox{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:4px 6px 4px 12px}
+.searchbox input{
+  border:0;background:transparent;font:inherit;font-size:14px;width:130px;color:var(--ink);outline:none;padding:2px 0;
+}
+.searchbox button{
+  border:0;background:var(--brand);color:#fff;font:inherit;font-size:13.5px;padding:5px 13px;border-radius:99px;cursor:pointer;
+}
+.searchbox button:hover{background:var(--brand-2)}
+.searchmsg{font-size:13px;color:var(--accent);padding:4px 0 8px;display:none}
+.searchmsg.show{display:block}
+.menu-btn{
+  display:none;border:1px solid var(--line);background:#fff;border-radius:var(--radius-sm);
+  padding:8px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink);
+}
+.menu-btn:hover{background:var(--mint)}
+.entry-cta{
+  background:var(--accent);color:#fff;border-radius:99px;padding:8px 16px;font-size:14px;font-weight:600;white-space:nowrap;
+}
+.entry-cta:hover{background:#c9652e;text-decoration:none;color:#fff}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(160deg,#0f2b24 0%,#133a30 52%,#123029 100%);color:#eaf3ee}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:36px;align-items:center;padding:54px 0 58px}
+.hero svg.scene{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.55}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(143,224,189,.5);color:#9ee6c4;font-size:12.5px;letter-spacing:.08em;padding:4px 12px;border-radius:99px;margin-bottom:16px}
+.hero h1{
+  font-size:clamp(30px,4.6vw,52px);color:#fff;font-weight:850;letter-spacing:.01em;margin-bottom:14px;
+}
+.hero h1 .hl{color:#8fe0bd}
+.hero .lead{color:#cfe3d9;font-size:15.5px;max-width:42em;margin-bottom:22px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.btn{display:inline-block;padding:11px 22px;border-radius:99px;font-size:15px;font-weight:600;border:1px solid transparent;transition:transform .15s ease,background .15s}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn-primary{background:#5fd7a8;color:#0f2b24}
+.btn-primary:hover{background:#7ee6bd}
+.btn-ghost{border-color:rgba(207,227,217,.5);color:#e6f3eb}
+.btn-ghost:hover{background:rgba(255,255,255,.1);color:#fff}
+.hero-stats{display:flex;gap:26px;flex-wrap:wrap;border-top:1px solid rgba(143,224,189,.25);padding-top:18px}
+.hero-stats div{min-width:96px}
+.hero-stats b{display:block;font-size:23px;color:#8fe0bd;font-weight:800;letter-spacing:.01em}
+.hero-stats span{font-size:12.5px;color:#a9c8bb}
+.hero-art{position:relative;z-index:2}
+
+/* layout */
+.main-grid{display:grid;grid-template-columns:minmax(0,1fr) 306px;gap:30px;align-items:start;padding:38px 0 12px}
+.content-col{min-width:0}
+aside.side-col{position:sticky;top:calc(var(--stick) + 14px);display:flex;flex-direction:column;gap:20px}
+@media(max-width:980px){
+  .main-grid{grid-template-columns:minmax(0,1fr)}
+  aside.side-col{position:static;order:2}
+}
+
+/* generic section */
+section.block{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 24px;margin-bottom:24px;box-shadow:var(--shadow);
+}
+.block-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.block-head h2{font-size:21px;font-weight:800;letter-spacing:.01em}
+.block-head .sub{font-size:13.5px;color:var(--muted)}
+.block-head .more{margin-left:auto;font-size:13.5px;white-space:nowrap}
+.sec-tag{font-size:12px;color:var(--brand);background:var(--mint);padding:2px 9px;border-radius:99px;font-weight:600}
+
+/* overview cards / grid */
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media(max-width:760px){.grid-3,.grid-2{grid-template-columns:minmax(0,1fr)}}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.card .thumb{aspect-ratio:16/9;width:100%;height:auto;object-fit:cover;background:var(--mint)}
+.card-body{padding:13px 14px 15px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card-body h3{font-size:15.5px;font-weight:700}
+.card-body p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.65}
+.card-meta{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.chip{display:inline-block;font-size:12px;padding:1.5px 8px;border-radius:99px;background:var(--accent-soft);color:#9c4a1e;font-weight:600}
+.chip.mint{background:var(--mint);color:var(--brand-2)}
+.chip.gray{background:#eef1ec;color:var(--muted)}
+
+/* compact list */
+ul.newslist{list-style:none;padding:0;margin:0}
+ul.newslist li{
+  display:grid;grid-template-columns:78px minmax(0,1fr);gap:14px;padding:11px 2px;border-bottom:1px dashed var(--line);
+}
+ul.newslist li:last-child{border-bottom:0;padding-bottom:0}
+ul.newslist time{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+ul.newslist b{font-weight:600;font-size:14.5px;display:block;margin-bottom:2px}
+ul.newslist p{font-size:13px;color:var(--muted);margin:0}
+
+/* category index */
+.cat-index{display:flex;flex-wrap:wrap;gap:10px}
+.cat-index a{
+  border:1px solid var(--line);border-radius:99px;padding:6px 15px;font-size:14px;color:var(--ink-2);background:#fbfcfa;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.cat-index a:hover{background:var(--mint);border-color:#bfe3d1;text-decoration:none}
+.cat-index a span{font-size:11.5px;color:var(--muted)}
+
+/* deep analysis */
+.article{max-width:none}
+.article h3{font-size:17px;margin:22px 0 8px;padding-left:11px;border-left:4px solid var(--brand);font-weight:800}
+.article p{font-size:15.2px;color:var(--ink-2)}
+.verdict{
+  border:1px solid #f0c9a8;background:#fdf4ec;border-radius:var(--radius-sm);padding:15px 17px;margin:16px 0;
+}
+.verdict b{color:#a44f18}
+.compare{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0 6px}
+.compare caption{text-align:left;font-size:12.5px;color:var(--muted);padding-bottom:6px}
+.compare th,.compare td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.compare th{background:#f2f6f1;font-weight:700;font-size:13px;color:var(--ink)}
+.compare td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* steps */
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:13px}
+ol.steps li{position:relative;padding:13px 15px 13px 54px;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fcfdfb}
+ol.steps li::before{
+  counter-increment:s;content:counter(s,decimal-leading-zero);
+  position:absolute;left:13px;top:13px;width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;
+  font-size:12.5px;font-weight:700;display:grid;place-items:center;letter-spacing:.02em;
+}
+ol.steps b{display:block;font-size:14.5px;margin-bottom:3px}
+ol.steps p{font-size:13.5px;color:var(--muted);margin:0}
+
+/* panel compare */
+.panel-2{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden}
+@media(max-width:680px){.panel-2{grid-template-columns:1fr}}
+.panel-2 .pane{padding:16px 17px}
+.panel-2 .pane:first-child{background:#f0f7f2;border-right:1px solid var(--line)}
+.panel-2 .pane h4{font-size:14.5px;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.panel-2 ul{margin:0;padding-left:1.1em;font-size:13.8px;color:var(--ink-2)}
+.panel-2 li{margin-bottom:5px}
+
+/* quotes */
+.quote-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:15px 17px;background:#fbfcfa;position:relative}
+.quote-card::before{content:"“";position:absolute;top:2px;right:14px;font-size:44px;color:#cfe3d7;font-family:Georgia,serif;line-height:1}
+.quote-card p{font-size:13.8px;color:var(--ink-2);margin:0 0 8px}
+.quote-card .who{font-size:12.5px;color:var(--muted)}
+
+/* timeline */
+ol.timeline{list-style:none;padding:0;margin:0;position:relative}
+ol.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+ol.timeline li{position:relative;padding:0 0 16px 30px}
+ol.timeline li:last-child{padding-bottom:0}
+ol.timeline li::before{content:"";position:absolute;left:2px;top:7px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--brand)}
+ol.timeline time{font-size:12.5px;color:var(--brand-2);font-weight:700;font-variant-numeric:tabular-nums}
+ol.timeline b{display:block;font-size:14.5px;margin:1px 0 2px}
+ol.timeline p{font-size:13.3px;color:var(--muted);margin:0}
+
+/* faq */
+details.faq{border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;margin-bottom:10px;overflow:hidden}
+details.faq[open]{border-color:#b9ddc9;box-shadow:var(--shadow)}
+details.faq summary{
+  cursor:pointer;padding:13px 44px 13px 15px;font-size:14.6px;font-weight:600;position:relative;list-style:none;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{
+  content:"+";position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:19px;color:var(--brand);font-weight:500;
+}
+details.faq[open] summary::after{content:"–"}
+details.faq .ans{padding:0 15px 15px;font-size:13.8px;color:var(--ink-2)}
+details.faq .ans p{margin:0}
+
+/* comments */
+.comment{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.comment:last-child{border-bottom:0;padding-bottom:0}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--mint);color:var(--brand-2);display:grid;place-items:center;font-weight:800;font-size:15px}
+.comment .cname{font-size:13.5px;font-weight:700;display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.comment .ctime{font-size:12px;color:var(--muted);font-weight:400}
+.comment p{font-size:13.8px;margin:3px 0 0;color:var(--ink-2)}
+.comment .likes{font-size:12px;color:var(--muted);margin-top:5px}
+
+/* tags */
+.tags{display:flex;flex-wrap:wrap;gap:9px}
+.tags a{font-size:13.5px;border:1px dashed #bcd9c9;color:var(--brand-2);background:#f6fbf8;padding:5px 13px;border-radius:99px}
+.tags a:hover{background:var(--mint);text-decoration:none;border-style:solid}
+
+/* rank list */
+ol.rank{list-style:none;counter-reset:r;padding:0;margin:0;display:grid;gap:9px}
+ol.rank li{counter-increment:r;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:11px;align-items:center;padding:9px 11px;border-radius:var(--radius-sm);background:#fafcf9;border:1px solid var(--line)}
+ol.rank li::before{content:counter(r);font-weight:800;color:#fff;background:var(--ink-2);width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:13px}
+ol.rank li:nth-child(1)::before{background:var(--accent)}
+ol.rank li:nth-child(2)::before{background:#3f8f74}
+ol.rank li:nth-child(3)::before{background:#6a8f83}
+ol.rank b{font-size:14px;font-weight:600}
+ol.rank .sc{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* sidebar */
+.side-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:17px 17px 15px;box-shadow:var(--shadow)}
+.side-card h2{font-size:15.5px;margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.side-card h2::before{content:"";width:4px;height:15px;background:var(--brand);border-radius:2px;display:inline-block}
+.side-nav{display:flex;flex-direction:column;gap:2px}
+.side-nav a{font-size:13.8px;padding:6px 9px;border-radius:7px;color:var(--ink-2);border-left:3px solid transparent}
+.side-nav a:hover{background:var(--mint);text-decoration:none}
+.side-nav a.active{background:var(--mint);color:var(--brand-2);font-weight:700;border-left-color:var(--brand)}
+.mini-list{list-style:none;padding:0;margin:0;font-size:13.5px}
+.mini-list li{padding:7px 0;border-bottom:1px dashed var(--line);line-height:1.55}
+.mini-list li:last-child{border-bottom:0;padding-bottom:0}
+.mini-list time{display:block;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* footer */
+footer.site{background:#10231d;color:#c3d6cc;margin-top:44px;padding:38px 0 22px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+@media(max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
+footer.site .fbrand{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+footer.site .fbrand svg{width:34px;height:34px}
+footer.site .fbrand strong{color:#fff;font-size:17px}
+footer.site p{font-size:13px;color:#9db8ab;line-height:1.7}
+footer.site h4{font-size:13.5px;color:#fff;margin-bottom:9px;letter-spacing:.04em}
+footer.site ul{list-style:none;padding:0;margin:0;font-size:13px}
+footer.site li{margin-bottom:7px}
+footer.site a{color:#bccec4}
+footer.site a:hover{color:#8fe0bd}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:26px;padding-top:16px;font-size:12.3px;color:#87a295;display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between}
+.foot-bottom span{font-variant-numeric:tabular-nums}
+
+.to-top{
+  position:fixed;right:18px;bottom:22px;z-index:70;width:44px;height:44px;border-radius:50%;
+  border:1px solid #bcd9c9;background:#fff;color:var(--brand-2);cursor:pointer;display:none;
+  box-shadow:var(--shadow-lg);font-size:16px;font-weight:700;
+}
+.to-top.show{display:grid;place-items:center}
+.to-top:hover{background:var(--mint)}
+@media(max-width:520px){.to-top{right:12px;bottom:14px;width:40px;height:40px}}
+
+/* mobile nav */
+@media(max-width:900px){
+  .menu-btn{display:inline-block}
+  nav.mainnav{
+    order:5;flex-basis:100%;display:none;flex-direction:column;align-items:stretch;gap:2px;
+    padding:8px 0 4px;border-top:1px solid var(--line);margin-top:4px;
+  }
+  nav.mainnav.open{display:flex}
+  nav.mainnav a{padding:9px 12px;border-radius:8px}
+  .searchbox input{width:96px}
+}
+@media(max-width:560px){
+  .head-tools .entry-cta{display:none}
+  .searchbox input{width:74px}
+  .hero .wrap{grid-template-columns:1fr;padding:38px 0 42px;gap:26px}
+  .hero-art{display:none}
+  .hero-stats{gap:18px}
+  .block{padding:20px 16px}
+  .notice .wrap{font-size:12.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .card:hover{transform:none}
+  .btn:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-zone">
+  <div class="notice" role="region" aria-label="站内更新公告">
+    <div class="wrap">
+      <span class="dot" aria-hidden="true"></span>
+      <b>更新公告</b>
+      <span>2.7.3 补丁于 10 月 21 日上线，断崖回环第二段落点判定窗口由 0.18 秒改为 0.26 秒。</span>
+      <a href="/#latest">查看三条版本记录</a>
+    </div>
+  </div>
+
+  <header class="site">
+    <div class="wrap head-inner">
+      <a class="brand" href="/#top" aria-label="踩踏天堂caita 首页">
+        <svg viewBox="0 0 40 40" role="img" aria-label="折线地形标志">
+          <rect width="40" height="40" rx="9" fill="#14221f"/>
+          <path d="M7 30 L15 11 L21 23 L26 16 L33 30" fill="none" stroke="#5fd7a8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="15" cy="11" r="2.6" fill="#e0763b"/>
+        </svg>
+        <span class="brand-text">踩踏天堂caita<small>RIDE · TERRAIN · PACE</small></span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainnav">菜单</button>
+
+      <nav class="mainnav" id="mainnav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#featured">精选推荐</a>
+        <a href="/#latest">最新更新</a>
+        <a href="/#channels">分类频道</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#comments">玩家评论</a>
+      </nav>
+
+      <div class="head-tools">
+        <div class="searchbox" role="search">
+          <input type="search" id="siteSearch" placeholder="搜赛道、装备" aria-label="站内搜索">
+          <button type="button" id="searchBtn">搜索</button>
+        </div>
+        <a class="entry-cta" href="/#guide">新手起步路线</a>
+      </div>
+    </div>
+    <div class="wrap"><p class="searchmsg" id="searchMsg" role="status" aria-live="polite"></p></div>
+  </header>
+</div>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="heroTitle">
+    <svg class="scene" viewBox="0 0 1200 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#1d4a3d"/><stop offset="1" stop-color="#0e2620"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="460" fill="url(#mg)"/>
+      <path d="M0 360 L180 250 L300 320 L470 190 L620 300 L790 170 L940 280 L1100 200 L1200 260 L1200 460 L0 460 Z" fill="#123a2f" opacity=".9"/>
+      <path d="M0 400 L160 320 L320 370 L500 250 L660 340 L830 230 L980 330 L1140 260 L1200 310 L1200 460 L0 460 Z" fill="#0d2b23" opacity=".85"/>
+      <path d="M0 420 L200 360 L380 400 L560 310 L720 390 L900 300 L1050 380 L1200 330 L1200 460 L0 460 Z" fill="#0a221c" opacity=".9"/>
+      <g stroke="#5fd7a8" stroke-width="1.6" fill="none" opacity=".7">
+        <path d="M120 300 q40 -28 80 0 t80 0"/>
+        <path d="M600 250 q40 -24 80 0 t80 0"/>
+      </g>
+      <g fill="#e0763b" opacity=".85">
+        <circle cx="470" cy="190" r="4"/><circle cx="790" cy="170" r="4"/><circle cx="1100" cy="200" r="4"/>
+      </g>
+    </svg>
+
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="hero-badge">地形竞速垂直站 · 11 个赛道主题库</span>
+        <h1 id="heroTitle">踩踏天堂caita</h1>
+        <p class="lead">一份按赛道、补丁和装备拆细的观察笔记：断崖回环的落点判定、碎石长坡的换挡节点、湿地木栈道的刹车距离，都放到具体版本号和秒数里比对。跑图之前先知道哪段难、难在哪。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/#deep">读深度解析</a>
+          <a class="btn btn-ghost" href="/#channels">按赛道入口进入</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>11</b><span>已拆解赛道</span></div>
+          <div><b>2.7.3</b><span>当前补丁号</span></div>
+          <div><b>46</b><span>版本记录条目</span></div>
+          <div><b>0.26s</b><span>落点判定窗口</span></div>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 380 300" role="img" aria-label="三条赛道难度剖面示意">
+          <rect width="380" height="300" rx="16" fill="#0f2f27" stroke="#2f6b58"/>
+          <text x="24" y="36" fill="#9ee6c4" font-size="13" font-family="system-ui" letter-spacing="1">难度剖面 / 2026-11</text>
+          <g stroke="#2f6b58" stroke-width="1">
+            <line x1="24" y1="70" x2="356" y2="70"/><line x1="24" y1="130" x2="356" y2="130"/>
+            <line x1="24" y1="190" x2="356" y2="190"/><line x1="24" y1="250" x2="356" y2="250"/>
+          </g>
+          <path d="M24 250 L80 200 L130 220 L190 150 L240 190 L300 110 L356 150" fill="none" stroke="#5fd7a8" stroke-width="3" stroke-linecap="round"/>
+          <path d="M24 240 L90 230 L150 200 L210 210 L270 170 L330 185 L356 175" fill="none" stroke="#e0763b" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="6 5"/>
+          <path d="M24 260 L100 255 L170 250 L230 248 L290 240 L356 238" fill="none" stroke="#87a295" stroke-width="2" stroke-linecap="round"/>
+          <g font-size="11.5" font-family="system-ui" fill="#a9c8bb">
+            <text x="24" y="286">断崖回环</text>
+            <text x="122" y="286">碎石长坡</text>
+            <text x="222" y="286">湿地木栈道</text>
+          </g>
+          <circle cx="190" cy="150" r="5" fill="#e0763b"/>
+          <circle cx="300" cy="110" r="5" fill="#5fd7a8"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap main-grid">
+
+    <div class="content-col" id="articleArea">
+
+      <section class="block" id="overview" aria-labelledby="h-overview">
+        <div class="block-head">
+          <h2 id="h-overview">领域概览</h2>
+          <span class="sec-tag">11 个赛道主题</span>
+          <span class="sub">按地形与节奏切分，先看差异再看难度</span>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/seed/caita-ridge/480/270" width="480" height="270" loading="lazy" alt="断崖回环赛道高空回旋段落示意画面">
+            <div class="card-body">
+              <h3>断崖回环：三段跳台的地形竞速</h3>
+              <p>核心是三段跳台与回环落点，2.7.3 后台第二段落点判定 0.26 秒，逐段落地比连跳更稳。</p>
+              <div class="card-meta"><span class="chip mint">跳台判定</span><span>难度 ★★★★</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/seed/caita-gravel/480/270" width="480" height="270" loading="lazy" alt="碎石长坡连续起伏路面的近景照片">
+            <div class="card-body">
+              <h3>碎石长坡：换挡节点的节奏控制</h3>
+              <p>坡度变化集中在 300—520 米，两个换挡窗口分别落在 335 米与 470 米附近，错过就掉速。</p>
+              <div class="card-meta"><span class="chip mint">换挡节点</span><span>难度 ★★★</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/seed/caita-marsh/480/270" width="480" height="270" loading="lazy" alt="湿地木栈道潮湿木板与浅水交界处">
+            <div class="card-body">
+              <h3>湿地木栈道：低摩擦的地形踩踏</h3>
+              <p>2.7.1 把木栈道摩擦系数从 0.62 调到 0.48，滑行距离拉长，刹车点得提前约半个身位。</p>
+              <div class="card-meta"><span class="chip mint">摩擦系数</span><span>难度 ★★☆</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" id="featured" aria-labelledby="h-featured">
+        <div class="block-head">
+          <h2 id="h-featured">精选内容推荐</h2>
+          <span class="sub">本周被引用次数最多的四条</span>
+          <a class="more" href="/#channels">全部频道 →</a>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/seed/caita-switch/520/290" width="520" height="290" loading="lazy" alt="手柄扳机与键盘按键对照摆放在桌面上">
+            <div class="card-body">
+              <h3>急刹甩尾：键盘短按与手柄扳机的差异</h3>
+              <p>落地角度超过 35 度甩尾判定不成立，这条门槛 2.7.2 才写进补丁说明，此前按 40 度算。两种设备在 30—35 度区间的容错差得最明显。</p>
+              <div class="card-meta"><span class="chip">操作手感</span><span>11 月 5 日整理</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="thumb" src="https://picsum.photos/seed/caita-gear/520/290" width="520" height="290" loading="lazy" alt="不同胎压设定的轮组与工具箱">
+            <div class="card-body">
+              <h3>低胎压硬尾搭配：湿地木栈道的抓地取舍</h3>
+              <p>胎压降到 1.6 bar 后湿地起步更稳，但碎石长坡 480 米处滚阻上升约 9%，两条赛道难兼顾，得按本周主练的地图二选一。</p>
+              <div class="card-meta"><span class="chip">装备搭配</span><span>11 月 3 日更新</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" id="latest" aria-labelledby="h-latest">
+        <div class="block-head">
+          <h2 id="h-latest">最新更新</h2>
+          <span class="sub">版本补丁与规则条文变化</span>
+        </div>
+        <ul class="newslist">
+          <li>
+            <time datetime="2026-11-08">11 月 8 日</time>
+            <div><b>赛季地图池轮换，湿地木栈道退出本周排位</b><p>轮换名单由官方赛务账号在上午 10 点公布，木栈道被移除，断崖回环保留为固定图。练习计划需改。</p></div>
+          </li>
+          <li>
+            <time datetime="2026-11-06">11 月 6 日</time>
+            <div><b>2.7.4 预热帖提到「落点提示线」可视化</b><p>官方只发了功能截图，未给上线日期，属于预告而非已实装内容，暂时不能当作练习依据。</p></div>
+          </li>
+          <li>
+            <time datetime="2026-11-04">11 月 4 日</time>
+            <div><b>碎石长坡 470 米换挡窗口的判定帧修正</b><p>热修把该窗口从 3 帧扩到 4 帧，社区计时榜前二十名里有七人成绩在该热修后刷新。</p></div>
+          </li>
+          <li>
+            <time datetime="2026-11-01">11 月 1 日</time>
+            <div><b>急刹甩尾教学贴被作者重写</b><p>原文写「40 度以内都成立」，作者 11 月 1 日更正为 35 度，并注明依据 2.7.2 补丁说明第九条。</p></div>
+          </li>
+          <li>
+            <time datetime="2026-10-21">10 月 21 日</time>
+            <div><b>2.7.3 上线，断崖回环第二段落点判定放宽</b><p>判定窗口 0.18 秒 → 0.26 秒，三段跳台的连跳要求实质取消，逐段落地成为主流打法。</p></div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="block" id="channels" aria-labelledby="h-channels">
+        <div class="block-head">
+          <h2 id="h-channels">分类频道</h2>
+          <span class="sub">十一个常驻频道，按你练的内容进</span>
+        </div>
+        <div class="cat-index" aria-label="频道入口索引">
+          <a href="/#deep">断崖回环跳台</a>
+          <a href="/#deep">碎石长坡换挡</a>
+          <a href="/#guide">湿地木栈道刹车</a>
+          <a href="/#featured">急刹甩尾判定</a>
+          <a href="/#latest">补丁条款追踪</a>
+          <a href="/#guide">落点预判训练法</a>
+          <a href="/#featured">低胎压抓地搭配</a>
+          <a href="/#rank">赛道计时榜</a>
+          <a href="/#timeline">版本时间线</a>
+          <a href="/#comments">跑图实录</a>
+          <a href="/#faq">新手常见疑惑</a>
+        </div>
+      </section>
+
+      <section class="block" id="deep" aria-labelledby="h-deep">
+        <div class="block-head">
+          <h2 id="h-deep">深度解析</h2>
+          <span class="sec-tag">主体阅读区</span>
+          <span class="sub">判断附可核对依据，欢迎反驳</span>
+        </div>
+        <article class="article">
+          <p>2.7.3 把断崖回环第二段落点判定窗口从 0.18 秒放宽到 0.26 秒，这件事被很多人读成「赛道变简单了」。更准确的说法是：它把容错从起跳前移到了落地后，练习重心需要跟着换位置。</p>
+
+          <h3>判断一：连跳不再是效率选择，逐段落地反而更省时</h3>
+          <p>补丁上线前，三段跳台要求在第二段落地前完成第三次起跳，失败一次就整段重来。10 月 21 日之后，0.26 秒的窗口允许角色在第二落点停顿约 4 帧再起跳。社区计时榜（账号「回环记录员」统计，10 月 22 日至 11 月 6 日）前二十名里，第一次出现逐段落地的成绩：17 号选手「滑步七号」用时 41 秒 62，比连跳派最好成绩慢 0.9 秒，但成功率从 43% 升到 71%。这是速度与稳定性的明确交换，不是单纯变简单。</p>
+
+          <div class="verdict">
+            <b>可被反驳的判断：</b>对练习时长低于 20 小时的玩家，逐段落地带来的期望收益高于连跳——按 71% 成功率算，连跳需要尝试约 2.3 次才能过一次，逐段落地约 1.4 次。如果你已经在连跳上建立了肌肉记忆，这条判断不成立，改打法会倒亏。
+          </div>
+
+          <h3>判断二：湿地木栈道的摩擦下调影响的是刹车点，不是速度上限</h3>
+          <p>木栈道摩擦系数在 2.6 版本是 0.62，2.7.1 降到 0.48。数值看着只是滑一点，实际影响集中在入弯前的刹车距离。以 300 米直道后的浅弯为例，摩擦 0.62 时刹停距离约 14 米，0.48 时拉长到 19 米左右，刹车点要提前约 5 米、换算成半个身位多一点。速度上限没变，变的是你敢在弯前多久松油门。</p>
+
+          <table class="compare">
+            <caption>湿地木栈道刹车点对照（浅弯前直道 300 米段，实测三次取均值）</caption>
+            <thead>
+              <tr><th>项目</th><th>2.6 版本</th><th>2.7.1 及以后</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>摩擦系数</td><td class="num">0.62</td><td class="num">0.48</td></tr>
+              <tr><td>刹停距离</td><td class="num">约 14 m</td><td class="num">约 19 m</td></tr>
+              <tr><td>建议刹车点（距弯心）</td><td class="num">36 m</td><td class="num">41 m</td></tr>
+              <tr><td>出弯速度</td><td class="num">基本不变</td><td class="num">基本不变</td></tr>
+            </tbody>
+          </table>
+
+          <h3>判断三：甩尾角度门槛的下调，把键盘玩家挤出了舒适区</h3>
+          <p>2.7.2 补丁说明第九条写明：落地角度大于 35 度时甩尾判定不成立。此前社区普遍按 40 度操作，因为早期教程「甩尾三分钟入门」贴的就是 40 度。门槛收紧 5 度后，手柄线性扳机在 30—35 度区间还能微调，键盘的 8 向输入要么 27 度要么 36 度，正好卡在两侧。一位叫「短按三百次」的玩家在 11 月 2 日的帖子里记录了 60 次尝试：手柄成功 41 次，键盘成功 23 次。样本不大，但方向清楚。</p>
+
+          <div class="verdict">
+            <b>事实与推测要分开：</b>35 度门槛有补丁说明原文可查，属于事实；「键盘玩家胜率因此下降一成」目前只有单人 60 次样本，属于推测，需要更多记录才能定论。官方赛务账号至今没有就键盘适配发过说明。
+          </div>
+
+          <h3>把判断拆成可核对项</h3>
+          <ul>
+            <li>补丁号与日期：2.7.3 对应 10 月 21 日，2.7.2 对应 10 月 9 日，可对照官方更新日志。</li>
+            <li>判定窗口数字：0.18 秒与 0.26 秒，出现在 2.7.3 说明第二段。</li>
+            <li>摩擦系数：0.62 → 0.48，出现在 2.7.1 说明的地形参数表。</li>
+            <li>甩尾角度：35 度，出现在 2.7.2 说明第九条。</li>
+            <li>计时榜数据：账号「回环记录员」10 月 22 日至 11 月 6 日的公开表格，可自行下载比对。</li>
+          </ul>
+          <p>四项里有三项能在官方日志里直接查到，只有计时榜属于玩家自建数据。引用时把这两类分开，比笼统说「版本改了所以变简单」有用得多。</p>
+        </article>
+      </section>
+
+      <section class="block" id="guide" aria-labelledby="h-guide">
+        <div class="block-head">
+          <h2 id="h-guide">体验指南</h2>
+          <span class="sub">从第一次进图到稳定完赛的四步</span>
+        </div>
+        <ol class="steps">
+          <li>
+            <b>先用湿地木栈道熟悉刹车</b>
+            <p>摩擦 0.48 的地图最能暴露刹车点问题。以浅弯前 41 米为刹车起点跑五趟，记录三次刹停位置，偏差超过 3 米就重来。</p>
+          </li>
+          <li>
+            <b>在上坡段背换挡节点</b>
+            <p>碎石长坡 335 米与 470 米两个窗口，热修后后者从 3 帧扩到 4 帧。用键盘短按先建立节奏，再切手柄练连贯。</p>
+          </li>
+          <li>
+            <b>断崖回环改逐段落地</b>
+            <p>第二落点停 4 帧再起跳，先求成功率再求速度。练到连续十次不摔，再回连跳做对比。</p>
+          </li>
+          <li>
+            <b>用落地角度 35 度门槛练甩尾</b>
+            <p>手柄微调扳机行程覆盖 30—35 度区间；键盘玩家把入弯前姿态提前修正，别指望空中改角度。</p>
+          </li>
+        </ol>
+        <div class="panel-2" style="margin-top:16px">
+          <div class="pane">
+            <h4>键盘方案</h4>
+            <ul>
+              <li>短按节奏稳，换挡节点更容易背</li>
+              <li>8 向输入，甩尾角度只有两档</li>
+              <li>长坡持续输出靠连按，手易疲劳</li>
+            </ul>
+          </div>
+          <div class="pane">
+            <h4>手柄方案</h4>
+            <ul>
+              <li>线性扳机覆盖 30—35 度微调</li>
+              <li>长坡持续输出更稳，滚阻变化感知清晰</li>
+              <li>短按精度不如键盘，跳台容易过冲</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="timeline" aria-labelledby="h-timeline">
+        <div class="block-head">
+          <h2 id="h-timeline">版本时间线</h2>
+          <span class="sub">近一个月影响跑法的变动</span>
+        </div>
+        <ol class="timeline">
+          <li><time datetime="2026-11-08">11 月 8 日</time><b>地图池轮换</b><p>湿地木栈道退出本周排位，断崖回环固定保留。</p></li>
+          <li><time datetime="2026-11-04">11 月 4 日</time><b>碎石长坡热修</b><p>470 米换挡窗口由 3 帧扩到 4 帧。</p></li>
+          <li><time datetime="2026-10-21">10 月 21 日</time><b>2.7.3 补丁</b><p>断崖回环第二段落点判定 0.18 秒 → 0.26 秒。</p></li>
+          <li><time datetime="2026-10-09">10 月 9 日</time><b>2.7.2 补丁</b><p>甩尾角度门槛写入 35 度，此前按 40 度计算。</p></li>
+        </ol>
+      </section>
+
+      <section class="block" id="rank" aria-labelledby="h-rank">
+        <div class="block-head">
+          <h2 id="h-rank">赛道计时榜</h2>
+          <span class="sub">断崖回环本周前五，数据截至 11 月 7 日</span>
+        </div>
+        <ol class="rank">
+          <li><b>「连跳不改」— 40 秒 71</b><span class="sc">连跳派 · 成功率 38%</span></li>
+          <li><b>「滑步七号」— 41 秒 62</b><span class="sc">逐段落地 · 成功率 71%</span></li>
+          <li><b>「扳机半毫米」— 41 秒 90</b><span class="sc">手柄 · 甩尾角度 33 度</span></li>
+          <li><b>「短按三百次」— 42 秒 15</b><span class="sc">键盘 · 成功率 39%</span></li>
+          <li><b>「木栈道常客」— 42 秒 48</b><span class="sc">跨图练习 · 刹车点 41 米</span></li>
+        </ol>
+      </section>
+
+      <section class="block" id="faq" aria-labelledby="h-faq">
+        <div class="block-head">
+          <h2 id="h-faq">常见问答</h2>
+          <span class="sub">四个常被问到的具体问题</span>
+        </div>
+        <details class="faq" open>
+          <summary>断崖回环三段跳台必须一次性连跳吗？</summary>
+          <div class="ans"><p>不必。2.7.3 把第二落点判定窗口放宽到 0.26 秒，跳台之间允许落地缓冲，逐个跳台分三次起跳反而更稳，计时榜上逐段落地的成功率 71%，连跳 38%。</p></div>
+        </details>
+        <details class="faq">
+          <summary>湿地木栈道地图的摩擦系数在不同版本有变化吗？</summary>
+          <div class="ans"><p>有。2.6 版本木栈道摩擦系数 0.62，2.7.1 下调到 0.48，同样速度下刹停距离从约 14 米拉长到 19 米，刹车点要提前约半个身位。</p></div>
+        </details>
+        <details class="faq">
+          <summary>新手用键盘还是手柄跑碎石长坡更省力？</summary>
+          <div class="ans"><p>碎石长坡的坡度变化集中在 300—520 米。键盘短按更易控制节奏，适合先背 335 米与 470 米两个换挡窗口；手柄的线性扳机在长坡持续输出上更稳，适合练连贯性。多数人的路径是先键盘后手柄。</p></div>
+        </details>
+        <details class="faq">
+          <summary>「急刹甩尾」的判定和落地角度有关吗？</summary>
+          <div class="ans"><p>有关。落地角度大于 35 度时甩尾判定不成立，这条门槛由 2.7.2 补丁说明第九条写入，此前该判定按 40 度计算，早期教程仍沿用旧数字，需要区分。</p></div>
+        </details>
+      </section>
+
+      <section class="block" id="comments" aria-labelledby="h-comments">
+        <div class="block-head">
+          <h2 id="h-comments">玩家评论</h2>
+          <span class="sub">对具体条目的反馈，含不同意见</span>
+        </div>
+        <div class="comment">
+          <div class="avatar" aria-hidden="true">滑</div>
+          <div>
+            <div class="cname">滑步七号 <span class="ctime">11 月 7 日</span></div>
+            <p>逐段落地练了三天，断崖回环从十次过四次变成十次过七次，跟计时榜那组数据对得上。就是第三跳起跳时机比第二跳难找，窗口宽了反而容易犹豫。</p>
+            <div class="likes">有用 42 · 回复 6</div>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="avatar" aria-hidden="true">短</div>
+          <div>
+            <div class="cname">短按三百次 <span class="ctime">11 月 5 日</span></div>
+            <p>35 度这个门槛对键盘是真的不友好。我 60 次里成功 23 次，手柄借朋友的跑了 41 次成功。样本小，但两台设备手感差得比我预想大。谁有键盘高成功率的落地角度，求具体数值。</p>
+            <div class="likes">有用 31 · 回复 14</div>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="avatar" aria-hidden="true">木</div>
+          <div>
+            <div class="cname">木栈道常客 <span class="ctime">11 月 6 日</span></div>
+            <p>摩擦 0.48 之后我把刹车点从 36 米改到 41 米，浅弯确实不冲出去了。但 41 米这个数在雨天场景好像还要再提前，场景参数没写清楚，先存疑。</p>
+            <div class="likes">有用 18 · 回复 3</div>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="avatar" aria-hidden="true">连</div>
+          <div>
+            <div class="cname">连跳不改 <span class="ctime">11 月 4 日</span></div>
+            <p>不同意「逐段落地更省时」。我连跳成功率 38% 但每次过去都是 40 秒出头，逐段落地稳定但慢近一秒。联赛里差一秒就是名次，练连跳不亏。</p>
+            <div class="likes">有用 27 · 回复 9</div>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="avatar" aria-hidden="true">路</div>
+          <div>
+            <div class="cname">路过看一眼 <span class="ctime">11 月 2 日</span></div>
+            <p>11 月 6 日那条「落点提示线」的预热帖截图我也看到了，但没写日期就当成已实装来练，容易白练。等补丁号出来再说。</p>
+            <div class="likes">有用 12 · 回复 1</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="news" aria-labelledby="h-news">
+        <div class="block-head">
+          <h2 id="h-news">相关资讯</h2>
+          <span class="sub">版本之外的社区动态</span>
+        </div>
+        <ul class="newslist">
+          <li>
+            <time datetime="2026-11-07">11 月 7 日</time>
+            <div><b>《甩尾三分钟入门》教程贴更新</b><p>作者把 40 度改成 35 度，并在文首加了更正说明，评论区仍在争论旧数据是否需要保留存档。</p></div>
+          </li>
+          <li>
+            <time datetime="2026-11-03">11 月 3 日</time>
+            <div><b>胎压 1.6 bar 的湿地实测记录公开</b><p>发布者附了三段起步视频与一次碎石长坡对比，滚阻上升约 9% 的说法来自同一组数据。</p></div>
+          </li>
+          <li>
+            <time datetime="2026-10-28">10 月 28 日</time>
+            <div><b>「回环记录员」公开计时表下载</b><p>包含 10 月 22 日至 11 月 6 日共 214 条记录，附带成功率与设备类型两列，是深度解析里那组数字的来源。</p></div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="block" id="related" aria-labelledby="h-related">
+        <div class="block-head">
+          <h2 id="h-related">相关推荐</h2>
+          <span class="sub">按你正在练的内容挑</span>
+        </div>
+        <div class="tags">
+          <a href="/#deep">断崖回环逐段落地训练法</a>
+          <a href="/#guide">湿地木栈道刹车点换算</a>
+          <a href="/#deep">甩尾角度 35 度门槛</a>
+          <a href="/#guide">碎石长坡换挡节点口诀</a>
+          <a href="/#featured">低胎压硬尾搭配对比</a>
+          <a href="/#rank">断崖回环计时榜解读</a>
+          <a href="/#timeline">2.7 系列补丁全记录</a>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="side-col" aria-label="侧栏导航与速览">
+      <div class="side-card">
+        <h2>本页导航</h2>
+        <nav class="side-nav" id="sideNav" aria-label="滚动高亮导航">
+          <a href="/#overview">领域概览</a>
+          <a href="/#featured">精选内容推荐</a>
+          <a href="/#latest">最新更新</a>
+          <a href="/#channels">分类频道</a>
+          <a href="/#deep">深度解析</a>
+          <a href="/#guide">体验指南</a>
+          <a href="/#timeline">版本时间线</a>
+          <a href="/#rank">赛道计时榜</a>
+          <a href="/#faq">常见问答</a>
+          <a href="/#comments">玩家评论</a>
+          <a href="/#news">相关资讯</a>
+          <a href="/#related">相关推荐</a>
+        </nav>
+      </div>
+
+      <div class="side-card">
+        <h2>近三日速览</h2>
+        <ul class="mini-list">
+          <li><time datetime="2026-11-08">11 月 8 日</time>湿地木栈道退出本周排位，断崖回环固定。</li>
+          <li><time datetime="2026-11-06">11 月 6 日</time>2.7.4 预热帖只放截图，未给上线日期。</li>
+          <li><time datetime="2026-11-04">11 月 4 日</time>碎石长坡 470 米窗口 3 帧 → 4 帧。</li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h2>装备备忘</h2>
+        <ul class="mini-list">
+          <li>硬尾 + 1.6 bar 胎压：湿地起步稳，长坡滚阻 +9%。</li>
+          <li>手柄扳机行程留 30—35 度余量，甩尾更可控。</li>
+          <li>键盘建议把下坡短按间隔压到 0.12 秒内。</li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="fbrand">
+          <svg viewBox="0 0 40 40" role="img" aria-label="折线地形标志">
+            <rect width="40" height="40" rx="9" fill="#183a30"/>
+            <path d="M7 30 L15 11 L21 23 L26 16 L33 30" fill="none" stroke="#5fd7a8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="15" cy="11" r="2.6" fill="#e0763b"/>
+          </svg>
+          <strong>踩踏天堂caita</strong>
+        </div>
+        <p>把赛道参数、补丁条文和玩家记录摊开对照的地形竞速内容站，只写能查到版本号与秒数的东西。</p>
+      </div>
+      <div>
+        <h4>赛道频道</h4>
+        <ul>
+          <li><a href="/#deep">断崖回环跳台</a></li>
+          <li><a href="/#deep">碎石长坡换挡</a></li>
+          <li><a href="/#guide">湿地木栈道刹车</a></li>
+          <li><a href="/#rank">赛道计时榜</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>规则与版本</h4>
+        <ul>
+          <li><a href="/#latest">补丁条款追踪</a></li>
+          <li><a href="/#timeline">版本时间线</a></li>
+          <li><a href="/#featured">急刹甩尾判定</a></li>
+          <li><a href="/#news">社区动态</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>参与与说明</h4>
+        <ul>
+          <li><a href="/#comments">跑图实录投稿</a></li>
+          <li><a href="/#faq">新手常见疑惑</a></li>
+          <li><a href="/#related">相关推荐索引</a></li>
+          <li><a href="/#top">回到页面顶部</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>页面内容更新至 2026-11-08，对应正文「最新更新」与「版本时间线」两条记录。</span>
+      <span>示例条目与示例数据仅作内容结构演示；版权归各原始发布者所有。</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var menuBtn=document.getElementById('menuBtn');
+  var nav=document.getElementById('mainnav');
+  if(menuBtn&&nav){
+    menuBtn.addEventListener('click',function(){
+      var open=nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    nav.addEventListener('click',function(e){
+      if(e.target.tagName==='A'&&window.innerWidth<=900){
+        nav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  var searchInput=document.getElementById('siteSearch');
+  var searchBtn=document.getElementById('searchBtn');
+  var msg=document.getElementById('searchMsg');
+  function runSearch(){
+    var q=(searchInput.value||'').trim().toLowerCase();
+    document.querySelectorAll('.block.result-hide').forEach(function(el){el.classList.remove('result-hide');});
+    if(!q){
+      msg.classList.remove('show');msg.textContent='';return;
+    }
+    var hits=0;
+    document.querySelectorAll('.main-grid .content-col > section.block').forEach(function(sec){
+      var txt=sec.textContent.toLowerCase();
+      if(txt.indexOf(q)>-1){hits++;}else{sec.classList.add('result-hide');}
+    });
+    msg.classList.add('show');
+    if(hits===0){
+      msg.textContent='没有找到与「'+searchInput.value.trim()+'」匹配的内容，试试「断崖回环」「摩擦系数」「换挡」等具体词。';
+    }else{
+      msg.textContent='找到 '+hits+' 个相关板块，已隐藏其余板块。清空搜索框可恢复。';
+    }
+  }
+  if(searchBtn&&searchInput){
+    searchBtn.addEventListener('click',runSearch);
+    searchInput.addEventListener('input',function(){ if(!searchInput.value.trim()){runSearch();} });
+    searchInput.addEventListener('keydown',function(e){ if(e.key==='Enter'){e.preventDefault();runSearch();} });
+  }
+
+  var toTop=document.getElementById('toTop');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>560){toTop.classList.add('show');}else{toTop.classList.remove('show');}
+  },{passive:true});
+  toTop.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:'smooth'});
+    var first=document.getElementById('mainnav');
+    if(first){first.classList.remove('open');menuBtn&&menuBtn.setAttribute('aria-expanded','false');}
+  });
+
+  var sideLinks=Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var sections=sideLinks.map(function(a){
+    return document.querySelector(a.getAttribute('href').replace('/#','#'));
+  }).filter(Boolean);
+  function highlight(){
+    var pos=window.scrollY+160;
+    var current=-1;
+    sections.forEach(function(sec,i){ if(sec.offsetTop<=pos){current=i;} });
+    sideLinks.forEach(function(a,i){ a.classList.toggle('active',i===current); });
+  }
+  window.addEventListener('scroll',highlight,{passive:true});
+  window.addEventListener('resize',highlight);
+  highlight();
+})();
+</script>
+</body>
+  </html>
